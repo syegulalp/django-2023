@@ -1,0 +1,22 @@
+<html>
+
+<head>
+    <title>The Postboard App</title>
+</head>
+
+<body>
+    <form action="{% url 'post_new' %}" method="post">
+        {% csrf_token %}
+        <textarea name="text_input"></textarea>
+        <br />
+        <input type="submit" value="Post">
+    </form>
+    <hr />
+    {% for post in last_posts %}
+    <h2>{{post.post_text}}</h2>
+    {{post.date}}
+    <hr />
+    {% endfor %}
+</body>
+
+</html>
