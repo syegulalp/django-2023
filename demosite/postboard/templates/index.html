@@ -5,16 +5,23 @@
 </head>
 
 <body>
+
+    {% if request.user.is_authenticated %}
     <form action="{% url 'post_new' %}" method="post">
         {% csrf_token %}
-        <textarea name="text_input"></textarea>
+        <textarea name="text_input" placeholder="Say something, {{request.user.username}}"></textarea>
         <br />
         <input type="submit" value="Post">
     </form>
+    {% else %}
+    <a href="{% url 'login' %}">Log in to write posts</a>
+    {% endif %}
+
     <hr />
+
     {% for post in last_posts %}
+    <p>{{post.user.username}} | {{post.date}}</p>
     <h2>{{post.post_text}}</h2>
-    {{post.date}}
     <hr />
     {% endfor %}
 </body>
